@@ -10,12 +10,16 @@ import (
 	"strconv"
 
 	"github.com/getlantern/systray"
-	"github.com/getlantern/systray/example/icon"
 )
 
 const HACKERNEWS_TOP_STORIES_API = "https://hacker-news.firebaseio.com/v0/topstories.json"
 const HACKERNEWS_NEWS_DETAIL_API = "https://hacker-news.firebaseio.com/v0/item/%s.json"
 const NEWS_LIMIT = 5
+
+type NewsItem struct {
+	Title string `json:"title"`
+	URL   string `json:"url"`
+}
 
 func getHackernewsIds() []int {
 	response, err := http.Get(HACKERNEWS_TOP_STORIES_API)
@@ -40,39 +44,33 @@ func getHackernewsIds() []int {
 
 	fmt.Printf("type of a is %v\n", reflect.TypeOf(body))
 
-	for i := 0; i < NEWS_LIMIT && i < len(newsIds); i++ {
-		newsId := newsIds[i]
-		fmt.Println(getHackernewsDetails(strconv.Itoa(newsId)))
-	}
-
 	return newsIds[:NEWS_LIMIT]
 }
 
-func getHackernewsDetails(newsId string) any {
+func getHackernewsDetails(newsId string) NewsItem {
 	apiURL := fmt.Sprintf(HACKERNEWS_NEWS_DETAIL_API, newsId)
 
 	response, err := http.Get(apiURL)
 	if err != nil {
 		fmt.Println("Error:", err)
-		return nil
+		panic(err)
 	}
 	defer response.Body.Close()
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println("Error:", err)
-		return nil
+		panic(err)
 	}
 
-	return string(body)
-}
+	var details NewsItem
+	err = json.Unmarshal(body, &details)
+	if err != nil {
+		fmt.Println("Error:", err)
+		panic(err)
+	}
 
-func main() {
-	systray.Run(onReady, onExit)
-}
-
-func onExit() {
-	// clean up here
+	return details
 }
 
 func onReady() {
@@ -83,12 +81,18 @@ func onReady() {
 	}
 
 	systray.SetIcon(iconBytes)
-	systray.SetTitle("")
 	systray.SetTooltip("Hacker News")
+
+	var newsIds = getHackernewsIds()
+	for i := 0; i < NEWS_LIMIT && i < len(newsIds); i++ {
+		newsId := newsIds[i]
+		newsDetailItem := getHackernewsDetails(strconv.Itoa(newsId))
+		fmt.Println(newsDetailItem.Title)
+		systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
+	}
+
 	mToggle := systray.AddMenuItem("Toggle", "bla bla")
 	mQuit := systray.AddMenuItem("Quit", "Quit the app")
-
-	mQuit.SetIcon(icon.Data)
 
 	for {
 		select {
@@ -101,4 +105,8 @@ func onReady() {
 		}
 	}
 
+}
+
+func main() {
+	systray.Run(onReady, nil)
 }
