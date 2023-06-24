@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+
 	"net/http"
 	"reflect"
 	"strconv"
@@ -83,9 +84,9 @@ func onReady() {
 
 	systray.SetIcon(iconBytes)
 	systray.SetTitle("")
-	systray.SetTooltip("Pretty awesome超级棒")
+	systray.SetTooltip("Hacker News")
 	mToggle := systray.AddMenuItem("Toggle", "bla bla")
-	mQuit := systray.AddMenuItem("Quit", "Quit the whole app")
+	mQuit := systray.AddMenuItem("Quit", "Quit the app")
 
 	mQuit.SetIcon(icon.Data)
 
