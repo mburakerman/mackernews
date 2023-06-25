@@ -71,6 +71,8 @@ func getNewsDetails(newsId string) (NewsItem, error) {
 	return details, nil
 }
 
+var strayNewsItem *systray.MenuItem
+
 func listNewsItems() {
 	newsIds, err := getNewsIds()
 	if err != nil {
@@ -86,10 +88,10 @@ func listNewsItems() {
 			continue
 		}
 
-		item := systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
+		strayNewsItem = systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
 		go func() {
 			for {
-				<-item.ClickedCh
+				<-strayNewsItem.ClickedCh
 				open.Run(newsDetailItem.URL)
 			}
 		}()
@@ -109,11 +111,15 @@ func onReady() {
 	listNewsItems()
 
 	systray.AddSeparator()
+	refreshItem := systray.AddMenuItem("Refresh", "")
 	aboutItem := systray.AddMenuItem("About Mackernews", "")
 	quitItem := systray.AddMenuItem("Quit", "Quit Mackernews")
 
 	for {
 		select {
+		case <-refreshItem.ClickedCh:
+			// refetch
+
 		case <-aboutItem.ClickedCh:
 			open.Run("https://github.com/mburakerman/mackernews/")
 
