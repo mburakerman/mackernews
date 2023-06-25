@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
 
 	"net/http"
 	"strconv"
@@ -84,8 +85,13 @@ func listNewsItems() {
 			fmt.Println("Error:", err)
 			continue
 		}
-		fmt.Println(newsDetailItem.Title)
-		systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
+		item := systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
+		go func() {
+			for {
+				<-item.ClickedCh
+				openURL(newsDetailItem.URL)
+			}
+		}()
 	}
 }
 
@@ -113,6 +119,14 @@ func onReady() {
 			systray.Quit()
 			return
 		}
+	}
+}
+
+func openURL(url string) {
+	cmd := exec.Command("open", url)
+	err := cmd.Start()
+	if err != nil {
+		fmt.Printf("failed to open URL: %s\n", err)
 	}
 }
 
