@@ -102,14 +102,14 @@ func onReady() {
 	listNewsItems()
 
 	refreshItem := systray.AddMenuItem("Refresh", "")
-	mQuit := systray.AddMenuItem("Quit", "Quit the app")
+	quitItem := systray.AddMenuItem("Quit", "Quit the app")
 
 	for {
 		select {
 		case <-refreshItem.ClickedCh:
 			listNewsItems()
 
-		case <-mQuit.ClickedCh:
+		case <-quitItem.ClickedCh:
 			systray.Quit()
 			return
 		}
