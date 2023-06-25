@@ -23,7 +23,7 @@ type NewsItem struct {
 	URL   string `json:"url"`
 }
 
-func getHackernewsIds() []NewsId {
+func getHackernewsIds() ([]NewsId, error) {
 	response, err := http.Get(HACKERNEWS_TOP_STORIES_API)
 	if err != nil {
 		panic(err)
@@ -33,21 +33,19 @@ func getHackernewsIds() []NewsId {
 
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
-		fmt.Printf("failed to read response body: %s", err)
-		return nil
+		return nil, fmt.Errorf("failed to read response body: %s", err)
 	}
 
 	var newsIds []NewsId
 	err = json.Unmarshal(body, &newsIds)
 	if err != nil {
-		fmt.Printf("failed to parse API response: %s", err)
-		panic(err)
+		return nil, fmt.Errorf("failed to parse API response: %s", err)
 	}
 
-	return newsIds[:NEWS_LIMIT]
+	return newsIds[:NEWS_LIMIT], nil
 }
 
-func getHackernewsDetails(newsId string) NewsItem {
+func getHackernewsDetails(newsId string) (NewsItem, error) {
 	apiURL := fmt.Sprintf(HACKERNEWS_NEWS_DETAIL_API, newsId)
 
 	response, err := http.Get(apiURL)
@@ -59,25 +57,33 @@ func getHackernewsDetails(newsId string) NewsItem {
 
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
-		fmt.Printf("failed to read detail response body: %s", err)
-		panic(err)
+		return NewsItem{}, fmt.Errorf("failed to read detail response body: %s", err)
+
 	}
 
 	var details NewsItem
 	err = json.Unmarshal(body, &details)
 	if err != nil {
-		fmt.Printf("failed to parse details API response: %s", err)
-		panic(err)
+		return NewsItem{}, fmt.Errorf("failed to parse details API response: %s", err)
 	}
 
-	return details
+	return details, nil
 }
 
 func listNewsItems() {
-	var newsIds = getHackernewsIds()
+	newsIds, err := getHackernewsIds()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
 	for i := 0; i < NEWS_LIMIT && i < len(newsIds); i++ {
 		newsId := newsIds[i]
-		newsDetailItem := getHackernewsDetails(strconv.Itoa(int(newsId)))
+		newsDetailItem, err := getHackernewsDetails(strconv.Itoa(int(newsId)))
+		if err != nil {
+			fmt.Println("Error:", err)
+			continue
+		}
 		fmt.Println(newsDetailItem.Title)
 		systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
 	}
