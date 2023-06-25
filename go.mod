@@ -1,4 +1,4 @@
-module go-hackernews
+module mackernews
 
 go 1.19
 
