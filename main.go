@@ -107,13 +107,14 @@ func onReady() {
 
 	listNewsItems()
 
-	refreshItem := systray.AddMenuItem("Refresh", "")
+	systray.AddSeparator()
+	aboutItem := systray.AddMenuItem("About Mackernews", "")
 	quitItem := systray.AddMenuItem("Quit", "Quit Mackernews")
 
 	for {
 		select {
-		case <-refreshItem.ClickedCh:
-			listNewsItems()
+		case <-aboutItem.ClickedCh:
+			openURL("https://github.com/mburakerman/mackernews")
 
 		case <-quitItem.ClickedCh:
 			systray.Quit()
