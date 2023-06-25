@@ -78,15 +78,15 @@ func listNewsItems() {
 		return
 	}
 
-	for i := 0; i < NEWS_LIMIT && i < len(newsIds); i++ {
-		newsId := newsIds[i]
-		newsDetailItem, err := getNewsDetails(strconv.Itoa(int(newsId)))
+	for _, newsId := range newsIds {
+		newsIdString := strconv.Itoa(int(newsId))
+		newsDetailItem, err := getNewsDetails(newsIdString)
 		if err != nil {
 			fmt.Println("Error:", err)
 			continue
 		}
+
 		item := systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
-		item.Disabled()
 		go func() {
 			for {
 				<-item.ClickedCh
