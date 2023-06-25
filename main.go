@@ -24,7 +24,7 @@ type NewsItem struct {
 	URL   string `json:"url"`
 }
 
-func getHackernewsIds() ([]NewsId, error) {
+func getNewsIds() ([]NewsId, error) {
 	response, err := http.Get(HACKERNEWS_TOP_STORIES_API)
 	if err != nil {
 		panic(err)
@@ -46,7 +46,7 @@ func getHackernewsIds() ([]NewsId, error) {
 	return newsIds[:NEWS_LIMIT], nil
 }
 
-func getHackernewsDetails(newsId string) (NewsItem, error) {
+func getNewsDetails(newsId string) (NewsItem, error) {
 	apiURL := fmt.Sprintf(HACKERNEWS_NEWS_DETAIL_API, newsId)
 
 	response, err := http.Get(apiURL)
@@ -72,7 +72,7 @@ func getHackernewsDetails(newsId string) (NewsItem, error) {
 }
 
 func listNewsItems() {
-	newsIds, err := getHackernewsIds()
+	newsIds, err := getNewsIds()
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -80,7 +80,7 @@ func listNewsItems() {
 
 	for i := 0; i < NEWS_LIMIT && i < len(newsIds); i++ {
 		newsId := newsIds[i]
-		newsDetailItem, err := getHackernewsDetails(strconv.Itoa(int(newsId)))
+		newsDetailItem, err := getNewsDetails(strconv.Itoa(int(newsId)))
 		if err != nil {
 			fmt.Println("Error:", err)
 			continue
@@ -103,12 +103,12 @@ func onReady() {
 	}
 
 	systray.SetIcon(iconBytes)
-	systray.SetTooltip("Hacker News")
+	systray.SetTooltip("Mackernews")
 
 	listNewsItems()
 
 	refreshItem := systray.AddMenuItem("Refresh", "")
-	quitItem := systray.AddMenuItem("Quit", "Quit the app")
+	quitItem := systray.AddMenuItem("Quit", "Quit Mackernews")
 
 	for {
 		select {
