@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"os/exec"
 
 	"net/http"
 	"strconv"
 
 	"github.com/getlantern/systray"
+	"github.com/skratchdot/open-golang/open"
 )
 
 const HACKERNEWS_TOP_STORIES_API = "https://hacker-news.firebaseio.com/v0/topstories.json"
@@ -86,10 +86,11 @@ func listNewsItems() {
 			continue
 		}
 		item := systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
+		item.Disabled()
 		go func() {
 			for {
 				<-item.ClickedCh
-				openURL(newsDetailItem.URL)
+				open.Run(newsDetailItem.URL)
 			}
 		}()
 	}
@@ -114,20 +115,12 @@ func onReady() {
 	for {
 		select {
 		case <-aboutItem.ClickedCh:
-			openURL("https://github.com/mburakerman/mackernews")
+			open.Run("https://github.com/mburakerman/mackernews/")
 
 		case <-quitItem.ClickedCh:
 			systray.Quit()
 			return
 		}
-	}
-}
-
-func openURL(url string) {
-	cmd := exec.Command("open", url)
-	err := cmd.Start()
-	if err != nil {
-		fmt.Printf("failed to open URL: %s\n", err)
 	}
 }
 
