@@ -3,7 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+	"os"
 
 	"net/http"
 	"strconv"
@@ -30,7 +31,7 @@ func getHackernewsIds() []NewsId {
 
 	defer response.Body.Close()
 
-	body, err := ioutil.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		fmt.Printf("failed to read response body: %s", err)
 		return nil
@@ -56,7 +57,7 @@ func getHackernewsDetails(newsId string) NewsItem {
 	}
 	defer response.Body.Close()
 
-	body, err := ioutil.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		fmt.Printf("failed to read detail response body: %s", err)
 		panic(err)
@@ -84,7 +85,7 @@ func listNewsItems() {
 
 func onReady() {
 	pngPath := "./icon.png"
-	iconBytes, err := ioutil.ReadFile(pngPath)
+	iconBytes, err := os.ReadFile(pngPath)
 	if err != nil {
 		panic(err)
 	}
