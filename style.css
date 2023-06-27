@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,500,600");
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,500,700");
 
 :root {
   --width: 920px;
@@ -44,14 +44,22 @@ body {
 h1 {
   color: var(--orange);
   font-size: 4rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 4rem;
 }
 
 nav {
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 #downloadButton {
+  display: inline-block;
   font-size: 1.75em;
   font-weight: 500;
   color: var(--backgroundColor);
@@ -65,12 +73,6 @@ nav {
 
 #downloadButton:hover {
   box-shadow: none;
-}
-
-h2 {
-  font-size: 1.75rem;
-  font-weight: 400;
-  margin-bottom: 5rem;
 }
 
 @media screen and (max-width: 920px) {
@@ -95,7 +97,7 @@ h2 {
   list-style: none;
   text-align: left;
   font-size: 1.2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 #info ul li {
