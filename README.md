@@ -1,8 +1,8 @@
 # Mackernews
 
-Mackernews is a tiny Mac menu bar app that enables you to quickly access latest & most popular Hacker News stories
+A a tiny Mac menu bar app that enables you to quickly access latest & most popular Hacker News stories
 
-https://github.com/mburakerman/mackernews/assets/17620102/3b6a7356-1caf-4307-af9a-c1a46bb12f8c
+https://github.com/mburakerman/mackernews/assets/17620102/f70bf1c7-6d8d-4b23-9353-759c36d54796
 
 <br />
 <hr />
@@ -18,7 +18,7 @@ go build -o mackernews.app -ldflags="-s -w \
 
 #### 📌 Note
 
-In order to create Go byte, first install `2goarray` package and run command below to get auto created `icon` package
+To create a Go byte, start by installing the `2goarray` package. Then, execute the following command to automatically generate the `icon` package.
 
 ```
 go install github.com/cratonica/2goarray
