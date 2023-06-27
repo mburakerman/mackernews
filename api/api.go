@@ -8,9 +8,8 @@ import (
 	"net/http"
 )
 
-const HACKERNEWS_TOP_STORIES_API = "https://hacker-news.firebaseio.com/v0/topstories.json"
+const HACKERNEWS_TOP_STORIES_API = `https://hacker-news.firebaseio.com/v0/topstories.json?limitToFirst=10&orderBy="$key"`
 const HACKERNEWS_NEWS_DETAIL_API = "https://hacker-news.firebaseio.com/v0/item/%s.json"
-const NEWS_LIMIT = 10
 
 type NewsId int
 
@@ -38,7 +37,7 @@ func GetNewsIds() ([]NewsId, error) {
 		return nil, fmt.Errorf("failed to parse API response: %s", err)
 	}
 
-	return newsIds[:NEWS_LIMIT], nil
+	return newsIds, nil
 }
 
 func GetNewsDetails(newsId string) (NewsItem, error) {
