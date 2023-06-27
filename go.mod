@@ -1,4 +1,4 @@
-module mackernews
+module github.com/mburakerman/mackernews
 
 go 1.19
 
