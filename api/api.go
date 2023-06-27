@@ -9,7 +9,7 @@ import (
 )
 
 const HACKERNEWS_TOP_STORIES_API = "https://hacker-news.firebaseio.com/v0/topstories.json"
-const HACKERNEWS_NEWS_DETAIL_API = "https://hacker-news.firebaseio.com/v0/item/%s.json"
+const HACKERNEWS_NEWS_DETAIL_API = "https://hacker-news.firebaseio.com/v0/item/%d.json"
 const NEWS_LIMIT = 10
 
 type NewsId int
@@ -41,7 +41,7 @@ func GetNewsIds() ([]NewsId, error) {
 	return newsIds[:NEWS_LIMIT], nil
 }
 
-func GetNewsDetails(newsId string) (NewsItem, error) {
+func GetNewsDetails(newsId int) (NewsItem, error) {
 	apiURL := fmt.Sprintf(HACKERNEWS_NEWS_DETAIL_API, newsId)
 
 	response, err := http.Get(apiURL)
