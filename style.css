@@ -41,6 +41,10 @@ body {
   margin: 0 auto;
 }
 
+#logo {
+  width: 50px;
+}
+
 h1 {
   color: var(--orange);
   font-size: 3.5rem;
