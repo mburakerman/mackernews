@@ -83,7 +83,6 @@ h2 {
   }
 }
 
-/* info */
 #info {
   display: flex;
   flex-direction: column;
@@ -96,7 +95,7 @@ h2 {
   list-style: none;
   text-align: left;
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 #info ul li {
