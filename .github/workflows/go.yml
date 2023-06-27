@@ -5,23 +5,22 @@ name: Go
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.19
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
 
-    - name: Install dependencies
+      - name: Install dependencies
         run: |
           go get github.com/getlantern/systray@v1.2.2
           go get github.com/skratchdot/open-golang@v0.0.0-20200116055534-eef842397966
@@ -35,8 +34,9 @@ jobs:
           go get github.com/go-stack/stack@v1.8.0
           sudo apt-get install -y libayatana-appindicator3-dev
 
-    - name: Build
-      run: go build -o mackernews.app -ldflags="-s -w \
-        -X 'main.icon=<icon-file-location>' \
-        -X 'main.BundleID=<bundle-identifier>' \
-        -X 'main.Version=<version>'" .
+      - name: Build
+        run: |
+          go build -o mackernews.app -ldflags="-s -w \
+            -X 'main.icon=<icon-file-location>' \
+            -X 'main.BundleID=<bundle-identifier>' \
+            -X 'main.Version=<version>'" .
