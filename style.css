@@ -43,7 +43,7 @@ body {
 
 h1 {
   color: var(--orange);
-  font-size: 4rem;
+  font-size: 3.5rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
 }
@@ -51,10 +51,6 @@ h1 {
 h2 {
   font-size: 1.75rem;
   font-weight: 400;
-  margin-bottom: 4rem;
-}
-
-nav {
   margin-bottom: 4rem;
 }
 
@@ -69,6 +65,7 @@ nav {
   text-decoration: none;
   box-shadow: 5px 5px 25px #ffffff26;
   transition: all 0.2s linear;
+  margin-bottom: 4rem;
 }
 
 #downloadButton:hover {
@@ -76,12 +73,8 @@ nav {
 }
 
 @media screen and (max-width: 920px) {
-  h1 {
-    font-size: 3.5rem;
-    margin-bottom: 2rem;
-  }
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 }
 
