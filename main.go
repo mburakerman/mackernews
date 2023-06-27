@@ -71,7 +71,7 @@ func getNewsDetails(newsId string) (NewsItem, error) {
 	return details, nil
 }
 
-var strayNewsItem *systray.MenuItem
+var strayNewsItems []*systray.MenuItem
 
 func listNewsItems() {
 	newsIds, err := getNewsIds()
@@ -88,13 +88,15 @@ func listNewsItems() {
 			continue
 		}
 
-		strayNewsItem = systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
-		go func() {
+		strayNewsItem := systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
+		strayNewsItems = append(strayNewsItems, strayNewsItem)
+
+		go func(item *systray.MenuItem) {
 			for {
-				<-strayNewsItem.ClickedCh
+				<-item.ClickedCh
 				open.Run(newsDetailItem.URL)
 			}
-		}()
+		}(strayNewsItem)
 	}
 }
 
@@ -118,7 +120,17 @@ func onReady() {
 	for {
 		select {
 		case <-refreshItem.ClickedCh:
-			// refetch
+			for _, strayNewsItem := range strayNewsItems {
+				strayNewsItem.Hide()
+			}
+			refreshItem.Hide()
+			aboutItem.Hide()
+			quitItem.Hide()
+			listNewsItems()
+			systray.AddSeparator()
+			refreshItem = systray.AddMenuItem("Refresh", "")
+			aboutItem = systray.AddMenuItem("About Mackernews", "")
+			quitItem = systray.AddMenuItem("Quit", "Quit Mackernews")
 
 		case <-aboutItem.ClickedCh:
 			open.Run("https://github.com/mburakerman/mackernews/")
