@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,500,700");
+
+:root {
+  --textColor: #fff;
+  --orange: rgb(255, 102, 0);
+  --green: #50fa7b;
+  --purple: #bd93f9;
+  --backgroundColor: #282a36;
+  --width: 920px;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+  line-height: 1.4;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--backgroundColor);
+  text-align: center;
+  padding: 1.5em;
+  color: var(--textColor);
+  max-width: var(--width);
+  width: 100%;
+  margin: 0 auto;
+}
+
+h1 {
+  color: var(--purple);
+  font-size: 4.5rem;
+  margin-bottom: 2rem;
+}
+
+nav {
+  margin-bottom: 3rem;
+}
+
+#downloadButton {
+  font-size: 1.85em;
+  color: #282a36;
+  padding: 0.3em 1em;
+  border-radius: 5px;
+  background-color: var(--green) !important;
+  text-decoration: none;
+  box-shadow: 3px 3px 20px #ffffff26;
+  transition: all 0.2s linear;
+}
+
+#downloadButton:hover {
+  box-shadow: none;
+}
+
+h2 {
+  font-size: 2.25rem;
+  font-weight: 400;
+  margin-bottom: 7.5rem;
+}
+
+@media screen and (max-width: 920px) {
+  h1 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* info */
+#info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#info ul {
+  list-style: none;
+  text-align: left;
+  font-size: 1.3rem;
+}
+
+#info ul li {
+  margin-bottom: 15px;
+}
+
+#info video {
+  width: 65%;
+  padding-left: 2rem;
+}
+
+@media screen and (max-width: 920px) {
+  #info {
+    flex-direction: column;
+  }
+  #info video {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  #info ul {
+    text-align: left;
+    display: inline-block;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+}
