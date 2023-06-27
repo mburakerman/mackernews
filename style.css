@@ -43,7 +43,7 @@ body {
 
 h1 {
   color: var(--orange);
-  font-size: 4.5rem;
+  font-size: 4rem;
   margin-bottom: 2rem;
 }
 
@@ -52,7 +52,7 @@ nav {
 }
 
 #downloadButton {
-  font-size: 1.85em;
+  font-size: 1.75em;
   font-weight: 500;
   color: var(--backgroundColor);
   padding: 0.3em 1em;
@@ -68,9 +68,9 @@ nav {
 }
 
 h2 {
-  font-size: 2.25rem;
+  font-size: 1.75rem;
   font-weight: 400;
-  margin-bottom: 7.5rem;
+  margin-bottom: 5rem;
 }
 
 @media screen and (max-width: 920px) {
@@ -79,45 +79,30 @@ h2 {
     margin-bottom: 2rem;
   }
   h2 {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
   }
 }
 
 /* info */
 #info {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
 #info ul {
   list-style: none;
   text-align: left;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 #info ul li {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 #info video {
-  width: 65%;
-  padding-left: 2rem;
-}
-
-@media screen and (max-width: 920px) {
-  #info {
-    flex-direction: column;
-  }
-  #info video {
-    width: 100%;
-    padding-left: 0;
-  }
-
-  #info ul {
-    text-align: left;
-    display: inline-block;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
+  width: 100%;
 }
