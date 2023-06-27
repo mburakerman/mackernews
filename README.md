@@ -4,6 +4,8 @@ Mackernews is a tiny Mac menu bar app that enables you to quickly access latest 
 
 https://github.com/mburakerman/mackernews/assets/17620102/07bd5f6f-bc17-4067-811f-4bf0b992e09f
 
+<br />
+<hr />
 
 ### 📦 Bundle
 
