@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,500,600");
 
 :root {
+  --width: 920px;
   --textColor: #fff;
-  --orange: rgb(255, 102, 0);
+  --backgroundColor: #282a36;
+  --orange: #ffca80;
   --green: #50fa7b;
   --purple: #bd93f9;
-  --backgroundColor: #282a36;
-  --width: 920px;
 }
 
 html {
@@ -42,7 +42,7 @@ body {
 }
 
 h1 {
-  color: var(--purple);
+  color: var(--orange);
   font-size: 4.5rem;
   margin-bottom: 2rem;
 }
@@ -53,12 +53,13 @@ nav {
 
 #downloadButton {
   font-size: 1.85em;
-  color: #282a36;
+  font-weight: 500;
+  color: var(--backgroundColor);
   padding: 0.3em 1em;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: var(--green) !important;
   text-decoration: none;
-  box-shadow: 3px 3px 20px #ffffff26;
+  box-shadow: 5px 5px 25px #ffffff26;
   transition: all 0.2s linear;
 }
 
