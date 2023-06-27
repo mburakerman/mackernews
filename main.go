@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"strconv"
 
 	"github.com/getlantern/systray"
 	"github.com/mburakerman/mackernews/api"
+	"github.com/mburakerman/mackernews/icon"
 	"github.com/skratchdot/open-golang/open"
 )
 
@@ -55,13 +55,7 @@ func listAllItems() {
 }
 
 func onReady() {
-	pngPath := "./icon.png"
-	iconBytes, err := os.ReadFile(pngPath)
-	if err != nil {
-		panic(err)
-	}
-
-	systray.SetIcon(iconBytes)
+	systray.SetIcon(icon.Data)
 	systray.SetTooltip("Mackernews")
 
 	listAllItems()
