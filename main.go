@@ -13,6 +13,7 @@ import (
 	"github.com/skratchdot/open-golang/open"
 )
 
+const GITHUB_URL = "https://github.com/mburakerman/mackernews/"
 const HACKERNEWS_TOP_STORIES_API = "https://hacker-news.firebaseio.com/v0/topstories.json"
 const HACKERNEWS_NEWS_DETAIL_API = "https://hacker-news.firebaseio.com/v0/item/%s.json"
 const NEWS_LIMIT = 5
@@ -72,6 +73,9 @@ func getNewsDetails(newsId string) (NewsItem, error) {
 }
 
 var strayNewsItems []*systray.MenuItem
+var strayRefreshItem *systray.MenuItem
+var strayAboutItem *systray.MenuItem
+var strayQuitItem *systray.MenuItem
 
 func listNewsItems() {
 	newsIds, err := getNewsIds()
@@ -100,6 +104,15 @@ func listNewsItems() {
 	}
 }
 
+func listAllItems() {
+	listNewsItems()
+
+	systray.AddSeparator()
+	strayRefreshItem = systray.AddMenuItem("Refresh", "")
+	strayAboutItem = systray.AddMenuItem("About Mackernews", "")
+	strayQuitItem = systray.AddMenuItem("Quit", "Quit Mackernews")
+}
+
 func onReady() {
 	pngPath := "./icon.png"
 	iconBytes, err := os.ReadFile(pngPath)
@@ -110,32 +123,24 @@ func onReady() {
 	systray.SetIcon(iconBytes)
 	systray.SetTooltip("Mackernews")
 
-	listNewsItems()
-
-	systray.AddSeparator()
-	refreshItem := systray.AddMenuItem("Refresh", "")
-	aboutItem := systray.AddMenuItem("About Mackernews", "")
-	quitItem := systray.AddMenuItem("Quit", "Quit Mackernews")
+	listAllItems()
 
 	for {
 		select {
-		case <-refreshItem.ClickedCh:
+		case <-strayRefreshItem.ClickedCh:
 			for _, strayNewsItem := range strayNewsItems {
 				strayNewsItem.Hide()
 			}
-			refreshItem.Hide()
-			aboutItem.Hide()
-			quitItem.Hide()
-			listNewsItems()
-			systray.AddSeparator()
-			refreshItem = systray.AddMenuItem("Refresh", "")
-			aboutItem = systray.AddMenuItem("About Mackernews", "")
-			quitItem = systray.AddMenuItem("Quit", "Quit Mackernews")
+			strayRefreshItem.Hide()
+			strayAboutItem.Hide()
+			strayQuitItem.Hide()
 
-		case <-aboutItem.ClickedCh:
-			open.Run("https://github.com/mburakerman/mackernews/")
+			listAllItems()
 
-		case <-quitItem.ClickedCh:
+		case <-strayAboutItem.ClickedCh:
+			open.Run(GITHUB_URL)
+
+		case <-strayQuitItem.ClickedCh:
 			systray.Quit()
 			return
 		}
