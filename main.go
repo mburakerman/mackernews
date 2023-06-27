@@ -25,7 +25,7 @@ func listNewsItems() {
 		return
 	}
 
-	for _, newsId := range newsIds {
+	for index, newsId := range newsIds {
 		newsIdString := strconv.Itoa(int(newsId))
 		newsDetailItem, err := api.GetNewsDetails(newsIdString)
 		if err != nil {
@@ -33,7 +33,8 @@ func listNewsItems() {
 			continue
 		}
 
-		strayNewsItem := systray.AddMenuItem(newsDetailItem.Title, newsDetailItem.URL)
+		title := fmt.Sprintf("%d. %s", index+1, newsDetailItem.Title)
+		strayNewsItem := systray.AddMenuItem(title, newsDetailItem.URL)
 		strayNewsItems = append(strayNewsItems, strayNewsItem)
 
 		go func(item *systray.MenuItem) {
