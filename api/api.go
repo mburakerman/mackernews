@@ -10,7 +10,7 @@ import (
 
 const HACKERNEWS_TOP_STORIES_API = "https://hacker-news.firebaseio.com/v0/topstories.json"
 const HACKERNEWS_NEWS_DETAIL_API = "https://hacker-news.firebaseio.com/v0/item/%s.json"
-const NEWS_LIMIT = 5
+const NEWS_LIMIT = 10
 
 type NewsId int
 
