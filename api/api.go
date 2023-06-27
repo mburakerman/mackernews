@@ -19,7 +19,7 @@ type NewsItem struct {
 	URL   string `json:"url"`
 }
 
-func getNewsIds() ([]NewsId, error) {
+func GetNewsIds() ([]NewsId, error) {
 	response, err := http.Get(HACKERNEWS_TOP_STORIES_API)
 	if err != nil {
 		panic(err)
@@ -41,7 +41,7 @@ func getNewsIds() ([]NewsId, error) {
 	return newsIds[:NEWS_LIMIT], nil
 }
 
-func getNewsDetails(newsId string) (NewsItem, error) {
+func GetNewsDetails(newsId string) (NewsItem, error) {
 	apiURL := fmt.Sprintf(HACKERNEWS_NEWS_DETAIL_API, newsId)
 
 	response, err := http.Get(apiURL)
