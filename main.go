@@ -12,7 +12,7 @@ import (
 )
 
 //go:embed icon.png
-var iconPNG []byte
+var iconByte []byte
 
 const GITHUB_URL = "https://github.com/mburakerman/mackernews/"
 
@@ -59,7 +59,7 @@ func listAllItems() {
 }
 
 func onReady() {
-	systray.SetIcon(iconPNG)
+	systray.SetIcon(iconByte)
 	systray.SetTooltip("Mackernews")
 
 	listAllItems()

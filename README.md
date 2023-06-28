@@ -15,4 +15,3 @@ go build -o mackernews.app -ldflags="-s -w \
         -X 'main.BundleID=<bundle-identifier>' \
         -X 'main.Version=<version>'" .
 ```
-
