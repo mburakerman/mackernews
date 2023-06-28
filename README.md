@@ -16,16 +16,3 @@ go build -o mackernews.app -ldflags="-s -w \
         -X 'main.Version=<version>'" .
 ```
 
-#### 📌 Note
-
-To create a Go byte, start by installing the `2goarray` package. Then, execute the following command to automatically generate the `icon` package.
-
-```
-go install github.com/cratonica/2goarray
-```
-
-```
-$GOPATH/bin/2goarray Data icon < icon/icon.png > icon.go
-```
-
-<hr />

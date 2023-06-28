@@ -3,13 +3,16 @@ package main
 import (
 	"fmt"
 
+	_ "embed"
 	"strconv"
 
 	"github.com/getlantern/systray"
 	"github.com/mburakerman/mackernews/api"
-	"github.com/mburakerman/mackernews/icon"
 	"github.com/skratchdot/open-golang/open"
 )
+
+//go:embed icon.png
+var iconPNG []byte
 
 const GITHUB_URL = "https://github.com/mburakerman/mackernews/"
 
@@ -56,7 +59,7 @@ func listAllItems() {
 }
 
 func onReady() {
-	systray.SetIcon(icon.Data)
+	systray.SetIcon(iconPNG)
 	systray.SetTooltip("Mackernews")
 
 	listAllItems()
