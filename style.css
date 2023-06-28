@@ -69,11 +69,17 @@ h2 {
   text-decoration: none;
   box-shadow: 5px 5px 25px #ffffff26;
   transition: all 0.2s linear;
-  margin-bottom: 4rem;
+  margin-bottom: 0.5rem;
 }
 
 #downloadButton:hover {
   box-shadow: none;
+}
+
+#version {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.75rem;
+  margin-bottom: 4rem;
 }
 
 @media screen and (max-width: 920px) {
