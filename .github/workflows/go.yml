@@ -23,6 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           go get -v ./...
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Build
         run: |
