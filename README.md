@@ -5,6 +5,14 @@ A a tiny Mac menu bar app that enables you to quickly access latest & most popul
 https://github.com/mburakerman/mackernews/assets/17620102/f70bf1c7-6d8d-4b23-9353-759c36d54796
 
 <br />
+
+### ☁️ Live Reaload
+
+Use [air](https://github.com/air-verse/air) package to enable live reload
+
+run `air` command instead `go run main.go`
+
+<br />
 <hr />
 
 ### 📦 Bundle
